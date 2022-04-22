@@ -1,0 +1,17 @@
+{
+  "name": "navigation-api-types",
+  "version": "0.1.0",
+  "description": "Type definition for the Navigation API",
+  "keywords": [
+    "navigation-api",
+    "Navigation API",
+    "app-history-api",
+    "App History API",
+    "TypeScript",
+    "types"
+  ],
+  "repository": "https://github.com/lukewarlow/navigation-api-types.git",
+  "types": "index.d.ts",
+  "author": "Luke Warlow",
+  "license": "MIT"
+}
