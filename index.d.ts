@@ -1,7 +1,7 @@
 // WICG Spec: https://github.com/WICG/navigation-api
 
 // https://wicg.github.io/navigation-api/#navigation
-interface Navigation {
+interface Navigation extends EventTarget {
     entries(): NavigationHistoryEntry[];
     readonly currentEntry?: NavigationHistoryEntry;
     updateCurrentEntry(options: NavigationUpdateCurrentEntryOptions): void;
@@ -17,10 +17,10 @@ interface Navigation {
     back(options?: NavigationOptions): NavigationResult;
     forward(options?: NavigationOptions): NavigationResult;
 
-    onnavigate: ((this: Navigation, ev: Event) => any) | null;
+    onnavigate: ((this: Navigation, ev: NavigateEvent) => any) | null;
     onnavigatesuccess: ((this: Navigation, ev: Event) => any) | null;
     onnavigateerror: ((this: Navigation, ev: Event) => any) | null;
-    oncurrententrychange: ((this: Navigation, ev: Event) => any) | null;
+    oncurrententrychange: ((this: Navigation, ev: NavigationCurrentEntryChangeEvent) => any) | null;
 }
 
 // https://wicg.github.io/navigation-api/#global
@@ -34,7 +34,7 @@ declare interface WindowNavigation {
 }
 
 // https://wicg.github.io/navigation-api/#navigateevent
-interface NavigationEvent extends Event {
+interface NavigateEvent extends Event {
     readonly navigationType: NavigationApiNavigationType;
     readonly destination: NavigationDestination;
     readonly canTransition: boolean;
@@ -49,13 +49,9 @@ interface NavigationEvent extends Event {
     restoreScroll(): void;
 }
 
-declare var NavigationEvent: {
-    prototype: NavigationEvent;
+declare var NavigateEvent: {
+    prototype: NavigateEvent;
     new(type: string, eventInit: NavigateEventInit): Event;
-    readonly AT_TARGET: number;
-    readonly BUBBLING_PHASE: number;
-    readonly CAPTURING_PHASE: number;
-    readonly NONE: number;
 };
 
 // https://wicg.github.io/navigation-api/#dictdef-navigateeventinit
@@ -69,6 +65,23 @@ interface NavigateEventInit extends EventInit {
     formData?: FormData | null;
     downloadRequest?: string | null;
     info?: any;
+}
+
+// https://wicg.github.io/navigation-api/#navigationcurrententrychangeevent
+interface NavigationCurrentEntryChangeEvent extends Event {
+    readonly navigationType?: NavigationApiNavigationType;
+    readonly from: NavigationHistoryEntry;
+}
+
+declare var NavigationCurrentEntryChangeEvent: {
+    prototype: NavigationCurrentEntryChangeEvent;
+    new(type: string, eventInit: NavigationCurrentEntryChangeEventInit): Event;
+};
+
+// https://wicg.github.io/navigation-api/#dictdef-navigationcurrententrychangeeventinit
+interface NavigationCurrentEntryChangeEventInit extends EventInit {
+    navigationType?: NavigationType;
+    destination: NavigationHistoryEntry;
 }
 
 // https://wicg.github.io/navigation-api/#navigationhistoryentry
@@ -102,19 +115,19 @@ interface NavigationUpdateCurrentEntryOptions {
 
 // https://wicg.github.io/navigation-api/#dictdef-navigationoptions
 interface NavigationOptions {
-    info: any;
+    info?: any;
 }
 
 // https://wicg.github.io/navigation-api/#dictdef-navigationnavigateoptions
 interface NavigationNavigateOptions extends NavigationOptions {
-    state: any;
-    // Always "auto"
-    history: NavigationHistoryBehavior;
+    state?: any;
+    // Defaults to "auto"
+    history?: NavigationHistoryBehavior;
 }
 
 // https://wicg.github.io/navigation-api/#dictdef-navigationreloadoptions
 interface NavigationReloadOptions extends NavigationOptions {
-    state: any;
+    state?: any;
 }
 
 // https://wicg.github.io/navigation-api/#navigationtransition
@@ -132,8 +145,8 @@ interface NavigationResult {
 
 // https://wicg.github.io/navigation-api/#dictdef-navigationtransitionwhileoptions
 interface NavigationTransitionWhileOptions {
-    focusReset: NavigationFocusReset;
-    scrollRestoration: NavigationScrollRestoration;
+    focusReset?: NavigationFocusReset;
+    scrollRestoration?: NavigationScrollRestoration;
 }
 
 // https://wicg.github.io/navigation-api/#enumdef-navigationtype
