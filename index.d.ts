@@ -38,8 +38,8 @@ interface NavigateEvent extends Event {
     readonly navigationType: NavigationApiNavigationType;
     readonly destination: NavigationDestination;
     /** @deprecated Deprecated in favour of {@link canIntercept} */
-    readonly canTransition: boolean;
-    readonly canIntercept: boolean;
+    readonly canTransition?: boolean;
+    readonly canIntercept?: boolean;
     readonly userInitiated: boolean;
     readonly hashChange: boolean;
     readonly signal: AbortSignal;
@@ -48,8 +48,8 @@ interface NavigateEvent extends Event {
     readonly info: any;
 
     /** @deprecated Deprecated in favour of {@link intercept} */
-    transitionWhile(newNavigationAction: Promise<void>, options?: NavigationTransitionWhileOptions): void;
-    intercept(options?: NavigationInterceptOptions): void;
+    transitionWhile?(newNavigationAction: Promise<void>, options?: NavigationTransitionWhileOptions): void;
+    intercept?(options?: NavigationInterceptOptions): void;
     restoreScroll(): void;
 }
 
