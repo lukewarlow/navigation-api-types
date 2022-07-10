@@ -43,8 +43,8 @@ interface NavigateEvent extends Event {
     readonly userInitiated: boolean;
     readonly hashChange: boolean;
     readonly signal: AbortSignal;
-    readonly formData?: FormData;
-    readonly downloadRequest?: string;
+    readonly formData: FormData | null;
+    readonly downloadRequest: string | null;
     readonly info: any;
 
     /** @deprecated Deprecated in favour of {@link intercept} */
@@ -92,7 +92,7 @@ interface NavigationCurrentEntryChangeEventInit extends EventInit {
 
 /** @see https://wicg.github.io/navigation-api/#navigationhistoryentry */
 interface NavigationHistoryEntry extends EventTarget {
-    readonly url?: string;
+    readonly url: string | null;
     readonly key: string;
     readonly id: string;
     readonly index: number;
@@ -106,8 +106,8 @@ interface NavigationHistoryEntry extends EventTarget {
 /** @see https://wicg.github.io/navigation-api/#navigationdestination */
 interface NavigationDestination {
     readonly url: string;
-    readonly key?: string;
-    readonly id?: string;
+    readonly key: string | null;
+    readonly id: string | null;
     readonly index: number;
     readonly sameDocument: boolean;
 
@@ -169,7 +169,7 @@ type NavigationApiNavigationType = "reload" | "push" | "replace" | "traverse";
 type NavigationHistoryBehavior = "auto" | "push" | "replace";
 
 /** @see https://wicg.github.io/navigation-api/#enumdef-navigationintercepthandler */
-type NavigationInterceptHandler = Promise<void>;
+type NavigationInterceptHandler = () => Promise<void>;
 
 /** @see https://wicg.github.io/navigation-api/#enumdef-navigationfocusreset */
 type NavigationFocusReset = "after-transition" | "manual";
