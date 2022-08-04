@@ -50,7 +50,9 @@ interface NavigateEvent extends Event {
     /** @deprecated Deprecated in favour of {@link intercept} */
     transitionWhile?(newNavigationAction: Promise<void>, options?: NavigationTransitionWhileOptions): void;
     intercept?(options?: NavigationInterceptOptions): void;
-    restoreScroll(): void;
+    /** @deprecated Deprecated in favour of {@link scroll} */
+    restoreScroll?(): void;
+    scroll?(): void;
 }
 
 declare var NavigateEvent: {
@@ -60,7 +62,7 @@ declare var NavigateEvent: {
 
 /** @see https://wicg.github.io/navigation-api/#dictdef-navigateeventinit */
 interface NavigateEventInit extends EventInit {
-    navigationType?: NavigationType;
+    navigationType?: NavigationApiNavigationType;
     destination: NavigationDestination;
     /** @deprecated Deprecated in favour of {@link canIntercept} */
     canTransition?: boolean;
@@ -86,7 +88,7 @@ declare var NavigationCurrentEntryChangeEvent: {
 
 /** @see https://wicg.github.io/navigation-api/#dictdef-navigationcurrententrychangeeventinit */
 interface NavigationCurrentEntryChangeEventInit extends EventInit {
-    navigationType?: NavigationType;
+    navigationType?: NavigationApiNavigationType;
     destination: NavigationHistoryEntry;
 }
 
@@ -152,14 +154,16 @@ interface NavigationResult {
 /** @deprecated Deprecated in favour of {@link NavigationInterceptOptions} */
 interface NavigationTransitionWhileOptions {
     focusReset?: NavigationFocusReset;
-    scrollRestoration?: NavigationScrollRestoration;
+    scrollRestoration?: NavigationScrollBehavior;
 }
 
 /** @see https://wicg.github.io/navigation-api/#dictdef-navigationinterceptoptions */
 interface NavigationInterceptOptions {
     handler?: NavigationInterceptHandler;
     focusReset?: NavigationFocusReset;
-    scrollRestoration?: NavigationScrollRestoration;
+    /** @deprecated Deprecated in favour of {@link scroll} */
+    scrollRestoration?: NavigationScrollBehavior;
+    scroll?: NavigationScrollBehavior;
 }
 
 /** @see https://wicg.github.io/navigation-api/#enumdef-navigationtype */
@@ -174,5 +178,5 @@ type NavigationInterceptHandler = () => Promise<void>;
 /** @see https://wicg.github.io/navigation-api/#enumdef-navigationfocusreset */
 type NavigationFocusReset = "after-transition" | "manual";
 
-/** @see https://wicg.github.io/navigation-api/#enumdef-navigationscrollrestoration */
-type NavigationScrollRestoration = "after-transition" | "manual";
+/** @see https://wicg.github.io/navigation-api/#enumdef-navigationscrollbehavior */
+type NavigationScrollBehavior = "after-transition" | "manual";
