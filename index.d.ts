@@ -37,9 +37,7 @@ declare interface WindowNavigation {
 interface NavigateEvent extends Event {
     readonly navigationType: NavigationApiNavigationType;
     readonly destination: NavigationDestination;
-    /** @deprecated Deprecated in favour of {@link canIntercept} */
-    readonly canTransition?: boolean;
-    readonly canIntercept?: boolean;
+    readonly canIntercept: boolean;
     readonly userInitiated: boolean;
     readonly hashChange: boolean;
     readonly signal: AbortSignal;
@@ -47,12 +45,8 @@ interface NavigateEvent extends Event {
     readonly downloadRequest: string | null;
     readonly info: any;
 
-    /** @deprecated Deprecated in favour of {@link intercept} */
-    transitionWhile?(newNavigationAction: Promise<void>, options?: NavigationTransitionWhileOptions): void;
-    intercept?(options?: NavigationInterceptOptions): void;
-    /** @deprecated Deprecated in favour of {@link scroll} */
-    restoreScroll?(): void;
-    scroll?(): void;
+    intercept(options?: NavigationInterceptOptions): void;
+    scroll(): void;
 }
 
 declare var NavigateEvent: {
@@ -64,8 +58,6 @@ declare var NavigateEvent: {
 interface NavigateEventInit extends EventInit {
     navigationType?: NavigationApiNavigationType;
     destination: NavigationDestination;
-    /** @deprecated Deprecated in favour of {@link canIntercept} */
-    canTransition?: boolean;
     canIntercept?: boolean;
     userInitiated?: boolean;
     hashChange?: boolean;
@@ -151,18 +143,10 @@ interface NavigationResult {
     finished: Promise<NavigationHistoryEntry>;
 }
 
-/** @deprecated Deprecated in favour of {@link NavigationInterceptOptions} */
-interface NavigationTransitionWhileOptions {
-    focusReset?: NavigationFocusReset;
-    scrollRestoration?: NavigationScrollBehavior;
-}
-
 /** @see https://wicg.github.io/navigation-api/#dictdef-navigationinterceptoptions */
 interface NavigationInterceptOptions {
     handler?: NavigationInterceptHandler;
     focusReset?: NavigationFocusReset;
-    /** @deprecated Deprecated in favour of {@link scroll} */
-    scrollRestoration?: NavigationScrollBehavior;
     scroll?: NavigationScrollBehavior;
 }
 
