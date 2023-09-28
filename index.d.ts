@@ -44,6 +44,7 @@ interface NavigateEvent extends Event {
     readonly formData: FormData | null;
     readonly downloadRequest: string | null;
     readonly info: any;
+    readonly hasUAVisualTransition: boolean;
 
     intercept(options?: NavigationInterceptOptions): void;
     scroll(): void;
@@ -65,6 +66,7 @@ interface NavigateEventInit extends EventInit {
     formData?: FormData | null;
     downloadRequest?: string | null;
     info?: any;
+    hasUAVisualTransition?: boolean;
 }
 
 /** @see https://wicg.github.io/navigation-api/#navigationcurrententrychangeevent */
