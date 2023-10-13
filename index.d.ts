@@ -45,6 +45,7 @@ interface NavigateEvent extends Event {
     readonly downloadRequest: string | null;
     readonly info: any;
     readonly hasUAVisualTransition: boolean;
+    readonly sourceElement: Element | null;
 
     intercept(options?: NavigationInterceptOptions): void;
     scroll(): void;
