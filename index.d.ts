@@ -17,10 +17,22 @@ interface Navigation extends EventTarget {
     back(options?: NavigationOptions): NavigationResult;
     forward(options?: NavigationOptions): NavigationResult;
 
-    onnavigate: ((this: Navigation, ev: NavigateEvent) => any) | null;
-    onnavigatesuccess: ((this: Navigation, ev: Event) => any) | null;
-    onnavigateerror: ((this: Navigation, ev: Event) => any) | null;
-    oncurrententrychange: ((this: Navigation, ev: NavigationCurrentEntryChangeEvent) => any) | null;
+    onnavigate: ((this: Navigation, ev: NavigationEventMap["navigate"]) => any) | null;
+    onnavigatesuccess: ((this: Navigation, ev: NavigationEventMap["navigatesuccess"]) => any) | null;
+    onnavigateerror: ((this: Navigation, ev: NavigationEventMap["navigateerror"]) => any) | null;
+    oncurrententrychange: ((this: Navigation, ev: NavigationEventMap["currententrychange"]) => any) | null;
+
+    addEventListener<K extends keyof NavigationEventMap>(type: K, listener: (this: Navigation, ev: NavigationEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener<K extends keyof NavigationEventMap>(type: K, listener: (this: Navigation, ev: NavigationEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+}
+
+interface NavigationEventMap {
+    navigate: NavigateEvent;
+    navigatesuccess: Event;
+    navigateerror: ErrorEvent;
+    currententrychange: NavigationCurrentEntryChangeEvent;
 }
 
 // https://wicg.github.io/navigation-api/#global
@@ -98,6 +110,11 @@ interface NavigationHistoryEntry extends EventTarget {
     getState(): any;
 
     ondispose: ((this: NavigationHistoryEntry, ev: Event) => any) | null;
+
+    addEventListener(type: "dispose", callback: (this: NavigationHistoryEntry, ev: Event) => any, options?: boolean | AddEventListenerOptions): void;
+    addEventListener(type: string, callback: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+    removeEventListener(type: "dispose", callback: (this: NavigationHistoryEntry, ev: Event) => any, options?: boolean | EventListenerOptions): void;
+    removeEventListener(type: string, callback: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
 /** @see https://wicg.github.io/navigation-api/#navigationdestination */
