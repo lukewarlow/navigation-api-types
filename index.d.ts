@@ -1,6 +1,5 @@
-// WICG Spec: https://github.com/WICG/navigation-api
 
-/** @see https://wicg.github.io/navigation-api/#navigation */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigation */
 interface Navigation extends EventTarget {
     entries(): NavigationHistoryEntry[];
     readonly currentEntry?: NavigationHistoryEntry;
@@ -35,17 +34,15 @@ interface NavigationEventMap {
     currententrychange: NavigationCurrentEntryChangeEvent;
 }
 
-// https://wicg.github.io/navigation-api/#global
 declare const navigation: Navigation | undefined;
 
 declare interface Window extends WindowNavigation {}
 
-// https://wicg.github.io/navigation-api/#global
 declare interface WindowNavigation {
     readonly navigation?: Navigation;
 }
 
-/** @see https://wicg.github.io/navigation-api/#navigateevent */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigateevent */
 interface NavigateEvent extends Event {
     readonly navigationType: NavigationApiNavigationType;
     readonly destination: NavigationDestination;
@@ -57,6 +54,7 @@ interface NavigateEvent extends Event {
     readonly downloadRequest: string | null;
     readonly info: any;
     readonly hasUAVisualTransition: boolean;
+    /** @see https://github.com/WICG/navigation-api/pull/264 */
     readonly sourceElement: Element | null;
 
     intercept(options?: NavigationInterceptOptions): void;
@@ -68,7 +66,7 @@ declare var NavigateEvent: {
     new(type: string, eventInit: NavigateEventInit): Event;
 };
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigateeventinit */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigateeventinit */
 interface NavigateEventInit extends EventInit {
     navigationType?: NavigationApiNavigationType;
     destination: NavigationDestination;
@@ -82,7 +80,7 @@ interface NavigateEventInit extends EventInit {
     hasUAVisualTransition?: boolean;
 }
 
-/** @see https://wicg.github.io/navigation-api/#navigationcurrententrychangeevent */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#the-navigationcurrententrychangeevent-interface */
 interface NavigationCurrentEntryChangeEvent extends Event {
     readonly navigationType?: NavigationApiNavigationType;
     readonly from: NavigationHistoryEntry;
@@ -93,13 +91,13 @@ declare var NavigationCurrentEntryChangeEvent: {
     new(type: string, eventInit: NavigationCurrentEntryChangeEventInit): Event;
 };
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigationcurrententrychangeeventinit */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationcurrententrychangeeventinit */
 interface NavigationCurrentEntryChangeEventInit extends EventInit {
     navigationType?: NavigationApiNavigationType;
     destination: NavigationHistoryEntry;
 }
 
-/** @see https://wicg.github.io/navigation-api/#navigationhistoryentry */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationhistoryentry */
 interface NavigationHistoryEntry extends EventTarget {
     readonly url: string | null;
     readonly key: string;
@@ -117,7 +115,7 @@ interface NavigationHistoryEntry extends EventTarget {
     removeEventListener(type: string, callback: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
 }
 
-/** @see https://wicg.github.io/navigation-api/#navigationdestination */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationdestination */
 interface NavigationDestination {
     readonly url: string;
     readonly key: string | null;
@@ -128,59 +126,59 @@ interface NavigationDestination {
     getState(): any;
 }
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigationupdatecurrententryoptions */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationupdatecurrententryoptions */
 interface NavigationUpdateCurrentEntryOptions {
     state: any;
 }
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigationoptions */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationoptions */
 interface NavigationOptions {
     info?: any;
 }
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigationnavigateoptions */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationnavigateoptions */
 interface NavigationNavigateOptions extends NavigationOptions {
     state?: any;
     // Defaults to "auto"
     history?: NavigationHistoryBehavior;
 }
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigationreloadoptions */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationreloadoptions */
 interface NavigationReloadOptions extends NavigationOptions {
     state?: any;
 }
 
-/** @see https://wicg.github.io/navigation-api/#navigationtransition */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationtransition */
 interface NavigationTransition {
     readonly navigationType: NavigationApiNavigationType;
     readonly from: NavigationHistoryEntry;
     readonly finished: Promise<void>;
 }
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigationresult */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationresult */
 interface NavigationResult {
     committed: Promise<NavigationHistoryEntry>;
     finished: Promise<NavigationHistoryEntry>;
 }
 
-/** @see https://wicg.github.io/navigation-api/#dictdef-navigationinterceptoptions */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationinterceptoptions */
 interface NavigationInterceptOptions {
     handler?: NavigationInterceptHandler;
     focusReset?: NavigationFocusReset;
     scroll?: NavigationScrollBehavior;
 }
 
-/** @see https://wicg.github.io/navigation-api/#enumdef-navigationtype */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationtype */
 type NavigationApiNavigationType = "reload" | "push" | "replace" | "traverse";
 
-/** @see https://wicg.github.io/navigation-api/#enumdef-navigationhistorybehavior */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationhistorybehavior */
 type NavigationHistoryBehavior = "auto" | "push" | "replace";
 
-/** @see https://wicg.github.io/navigation-api/#enumdef-navigationintercepthandler */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationintercepthandler */
 type NavigationInterceptHandler = () => Promise<void>;
 
-/** @see https://wicg.github.io/navigation-api/#enumdef-navigationfocusreset */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationfocusreset */
 type NavigationFocusReset = "after-transition" | "manual";
 
-/** @see https://wicg.github.io/navigation-api/#enumdef-navigationscrollbehavior */
+/** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationscrollbehavior */
 type NavigationScrollBehavior = "after-transition" | "manual";
