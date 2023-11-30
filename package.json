@@ -1,6 +1,6 @@
 {
   "name": "navigation-api-types",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Type definition for the Navigation API",
   "keywords": [
     "navigation-api",
