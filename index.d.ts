@@ -166,6 +166,11 @@ interface NavigationInterceptOptions {
     handler?: NavigationInterceptHandler;
     focusReset?: NavigationFocusReset;
     scroll?: NavigationScrollBehavior;
+    /**
+     * Not in HTML spec but implemented in Chromium
+     * @see https://github.com/WICG/navigation-api?tab=readme-ov-file#deferred-commit
+    */
+    commit?: NavigationCommitBehavior;
 }
 
 /** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationtype */
@@ -182,3 +187,9 @@ type NavigationFocusReset = "after-transition" | "manual";
 
 /** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#navigationscrollbehavior */
 type NavigationScrollBehavior = "after-transition" | "manual";
+
+/**
+ * Not in HTML spec but implemented in Chromium
+ * @see https://github.com/WICG/navigation-api?tab=readme-ov-file#deferred-commit
+ */
+type NavigationCommitBehavior = "after-transition" | "immediate";
