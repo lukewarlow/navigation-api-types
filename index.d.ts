@@ -54,7 +54,6 @@ interface NavigateEvent extends Event {
     readonly downloadRequest: string | null;
     readonly info: any;
     readonly hasUAVisualTransition: boolean;
-    /** @see https://github.com/WICG/navigation-api/pull/264 */
     readonly sourceElement: Element | null;
 
     intercept(options?: NavigationInterceptOptions): void;
@@ -78,6 +77,7 @@ interface NavigateEventInit extends EventInit {
     downloadRequest?: string | null;
     info?: any;
     hasUAVisualTransition?: boolean;
+    sourceElement?: Element | null;
 }
 
 /** @see https://html.spec.whatwg.org/multipage/nav-history-apis.html#the-navigationcurrententrychangeevent-interface */
