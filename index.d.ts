@@ -57,6 +57,18 @@ interface NavigateEvent extends Event {
     readonly sourceElement: Element | null;
 
     intercept(options?: NavigationInterceptOptions): void;
+    /**
+     * Not in HTML spec but implemented in Chromium
+     * @see https://github.com/WICG/navigation-api?tab=readme-ov-file#deferred-commit
+     * @experimental
+     */
+    commit(): void;
+    /**
+     * Not in HTML spec but implemented in Chromium
+     * @see https://github.com/WICG/navigation-api?tab=readme-ov-file#redirects-during-deferred-commit
+     * @experimental
+     */
+    redirect(): void;
     scroll(): void;
 }
 
@@ -169,6 +181,7 @@ interface NavigationInterceptOptions {
     /**
      * Not in HTML spec but implemented in Chromium
      * @see https://github.com/WICG/navigation-api?tab=readme-ov-file#deferred-commit
+     * @experimental
     */
     commit?: NavigationCommitBehavior;
 }
@@ -191,5 +204,6 @@ type NavigationScrollBehavior = "after-transition" | "manual";
 /**
  * Not in HTML spec but implemented in Chromium
  * @see https://github.com/WICG/navigation-api?tab=readme-ov-file#deferred-commit
+ * @experimental
  */
 type NavigationCommitBehavior = "after-transition" | "immediate";
